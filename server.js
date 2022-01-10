@@ -5,6 +5,7 @@ const app = express();
 app.use(express.urlencoded({ extended: true}));
 // parse incoming JSON data
 app.use(express.json());
+app.use(express.static('public'));
 const { animals } = require('./data/animals');
 const fs = require('fs');
 const path = require('path');
@@ -108,3 +109,7 @@ app.post('/api/animals', (req, res) => {
 app.listen(PORT, () => {
     console.log(`API server now on port 3001!`);
 });
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
+  });
